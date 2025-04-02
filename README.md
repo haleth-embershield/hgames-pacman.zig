@@ -2,7 +2,7 @@
 
 [![build](https://github.com/floooh/pacman.zig/actions/workflows/main.yml/badge.svg)](https://github.com/floooh/pacman.zig/actions/workflows/main.yml)
 
-Like https://github.com/floooh/pacman.c, but in Zig.
+This is a fork of [floooh's pacman.zig](https://github.com/floooh/pacman.zig) with added deployment capabilities.
 
 Zig bindings for the sokol headers are here: https://github.com/floooh/sokol-zig
 
@@ -36,6 +36,16 @@ zig build -Dtarget=wasm32-emscripten run
 zig build --release=safe run
 zig build -Dtarget=wasm32-emscripten --release=small run
 ```
+
+## Deploy to WASM Game Directory
+
+This fork adds a new `deploy` command that builds the WASM version and copies all necessary files to a `/dist` directory. The HTML file is automatically renamed to `index.html` for proper serving:
+
+```bash
+zig build deploy
+```
+
+This makes it easy to integrate with our WASM game directory website.
 
 On Windows, rendering is done via D3D11, on Linux via OpenGL, on macOS via Metal
 and the web version uses WebGL2.
