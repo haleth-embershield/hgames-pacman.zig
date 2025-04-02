@@ -155,7 +155,14 @@ fn addDeployCommand(b: *Build) !void {
 
     for (web_files) |file| {
         const source_path = b.fmt("zig-out/web/{s}", .{file});
-        const dest_path = b.fmt("../dist/{s}", .{file});
+
+        // Rename pacman.html to index.html
+        const dest_filename = if (std.mem.eql(u8, file, "pacman.html"))
+            "index.html"
+        else
+            file;
+
+        const dest_path = b.fmt("../dist/{s}", .{dest_filename});
 
         const copy_file = b.addInstallFile(b.path(source_path), dest_path);
         copy_file.step.dependOn(&link_step.step);
